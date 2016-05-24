@@ -15,9 +15,9 @@ $destination = array("12.981934", "77.623241");
 /*
  * The list of folks who are interested in getting a intimation when Uber
  * has no surge. Something like
- * $interesetedFolks = array("999999999", "888888888");
+ * $interestedFolks = array("999999999", "888888888");
  */
-$interesetedFolks = array();
+$interestedFolks = array();
 /*
  * This is the Uber Server Token from https://developer.uber.com
  */
@@ -95,8 +95,8 @@ function isUberSurging($data)
 function intimateSubscriber()
 {
     global $exotelToken, $exotelSid, $appId;
-    global $interesetedFolks;
-    foreach($interesetedFolks as $subscriberNum) {
+    global $interestedFolks;
+    foreach($interestedFolks as $subscriberNum) {
         $postData = array(
             'From' => "$subscriberNum",
             'To' => "08033013134",
