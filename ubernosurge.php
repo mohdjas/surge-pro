@@ -63,12 +63,12 @@ function getRideData($from, $to = null)
     }
 
     $url = $baseUrl . "?" . http_build_query($parametersArray);
+    curl_setopt($ch, CURLOPT_URL, $url);
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "authorization: Token $uberToken"
         )
     );
-    curl_setopt($ch, CURLOPT_URL, $url);
 
     $res = curl_exec($ch);
     $error = curl_error($ch);
