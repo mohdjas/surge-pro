@@ -107,8 +107,8 @@ function intimateSubscriber()
     foreach($interestedFolks as $subscriberNum) {
         $postData = array(
             'From' => "$subscriberNum",
-            'To' => $exotelVn,
-            'CallerId' => $exotelVn,
+            'To' => "$exotelVn",
+            'CallerId' => "$exotelVn",
             'Url' => "http://my.exotel.in/exoml/start/". $appId,
             'CallType' => "trans"
             );
