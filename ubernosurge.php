@@ -52,13 +52,17 @@ function getRideData($from, $to = null)
     global $uberToken;
     $ch = getCurlObj();
 
-    $url = "https://api.uber.com/v1/estimates/price";
-    $params = "start_latitude=$from[0]&start_longitude=$from[1]";
+    $baseUrl = "https://api.uber.com/v1/estimates/price";
+    $parametersArray = array(
+        "start_latitude" => $from[0],
+        "start_longitude" => $from[1]
+    );
     if (!is_null($to)) {
-        $params .= "&end_latitude=$to[0]&end_longitude=$to[1]";
+        $params["end_latitude"] = $to[0];
+        $params["end_longitude"] = $to[1];
     }
 
-    $url .= "?" . $params;
+    $url = $baseUrl . "?" . http_build_query($parametersArray);
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "authorization: Token $uberToken"
