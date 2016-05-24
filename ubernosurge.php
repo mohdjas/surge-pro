@@ -31,6 +31,10 @@ $exotelToken = "";
  * The Id of the app you created here - http://my.exotel.in/Exotel/apps
  */
 $appId = "";
+/* 
+ * The Exophone to call from
+ */
+$exotelVn = "";
 
 function getCurlObj()
 {
@@ -99,8 +103,8 @@ function intimateSubscriber()
     foreach($interestedFolks as $subscriberNum) {
         $postData = array(
             'From' => "$subscriberNum",
-            'To' => "08033013134",
-            'CallerId' => "08033013134",
+            'To' => $exotelVn,
+            'CallerId' => $exotelVn,
             'Url' => "http://my.exotel.in/exoml/start/". $appId,
             'CallType' => "trans"
             );
