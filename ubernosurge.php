@@ -1,15 +1,15 @@
 <?php
 /*
- * The Lat Long of the source  location. Change this to your location
+ * The Lat-long of the source location. Change this to your location.
  */
 $source = array("12.976633", "77.639888");
 /*
- * The Lat long of the destination. This is needed for the API.
- * You could put in any value here as long as it make sense.
- * We are just finding out if uber is surging at the source location.
- * So you could ideally put in any location here. But if you are
+ * The Lat-long of the destination. This is needed for the API.
+ * You could put in any value here as long as it makes sense -
+ * We are just finding out if Uber is surging at the source location.
+ * You could ideally put in any location here, but if you are
  * going to put in a value which is in another country or state
- * or where Uber does not operate, it might not work
+ * or where Uber does not operate, it might not work.
  */
 $destination = array("12.981934", "77.623241");
 /*
@@ -67,8 +67,7 @@ function getRideData($from, $to = null)
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "authorization: Token $uberToken"
-        )
-    );
+        ));
 
     $res = curl_exec($ch);
     $error = curl_error($ch);
@@ -88,7 +87,7 @@ function isUberSurging($data)
 {
     $surging = true;
     if (empty($data->prices)) {
-        echo "No rides available";
+        echo "No rides available!\n";
         return $surging;
     } else {
         foreach ($data->prices as $uberProduct) {
@@ -104,12 +103,12 @@ function intimateSubscriber()
 {
     global $exotelToken, $exotelSid, $appId;
     global $interestedFolks;
-    foreach($interestedFolks as $subscriberNum) {
+    foreach ($interestedFolks as $subscriberNum) {
         $postData = array(
             'From' => "$subscriberNum",
             'To' => "$exotelVn",
             'CallerId' => "$exotelVn",
-            'Url' => "http://my.exotel.in/exoml/start/". $appId,
+            'Url' => "http://my.exotel.in/exoml/start/" . $appId,
             'CallType' => "trans"
             );
         $ch = getCurlObj();
@@ -118,12 +117,12 @@ function intimateSubscriber()
 
         curl_setopt($ch, CURLOPT_USERPWD, $exotelSid . ":" . $exotelToken);
 
-        $url = "https://twilix.exotel.in/v1/Accounts/".$exotelSid."/Calls/connect";
+        $url = "https://twilix.exotel.in/v1/Accounts/" . $exotelSid . "/Calls/connect";
         curl_setopt($ch, CURLOPT_URL, $url);
 
         $http_result = curl_exec($ch);
         $error = curl_error($ch);
-        $http_code = curl_getinfo($ch ,CURLINFO_HTTP_CODE);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
     }
 }
@@ -139,7 +138,7 @@ function main()
     }
 
     if (isUberSurging($uberData)) {
-        echo ("Uber is surging - not calling anyone.\n");
+        echo ("Uber is surging or no rides are available - not calling anyone.\n");
     } else {
         echo ("No surge on this run. Intimating folks.\n");
         intimateSubscriber();
