@@ -99,7 +99,7 @@ function isUberSurging($data)
     return $surging;
 }
 
-function intimateSubscriber()
+function intimateFolks()
 {
     global $exotelToken, $exotelSid, $appId;
     global $interestedFolks;
@@ -141,7 +141,7 @@ function main()
         echo ("Uber is surging or no rides are available - not calling anyone.\n");
     } else {
         echo ("No surge on this run. Intimating folks.\n");
-        intimateSubscriber();
+        intimateFolks();
     }
 }
 
